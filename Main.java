@@ -35,33 +35,46 @@ public class Main {
 		if (newS1.equals(newS2)) return true;
 		else return false;
 	}
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	public static void spannbreite(String datei) {
-		int counter = 0;
+		int counter = 0; // Tries 2, 3, 4
 		int arrayMaker = 0;
-		int savedCounter = 0;
-		int countOfSequenceOld = 0;
-		int countOfSequenceNew = 0;
-        int totalOfCountSequence = 0;
-        
-		//int[] numbers = new int[10000]; // int array
-		String[] numbers = new String[10000]; // String array
+		//int savedCounter = 0; // Try 3 and 4
+		//int countOfSequenceOld = 0; // Try 1
+		//int countOfSequenceNew = 0; // Try 1
+        //int totalOfCountSequence = 0; // Try 1
+        //int sum = 0; // Try 5
+        //int digitCount = 0; // Try 5
+		//int biggest = 0; // Try 6
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // creates an int or String array depending on which thing I was trying to achieve the result
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////        
+		int[] numbers = new int[10000]; // int array
+		//String[] numbers = new String[10000]; // String array
 		Scanner sc = null;
 		File f = new File(datei);
 		try {
 			sc = new Scanner(f);
-			// create an array of ints
+			// create an array of ints or Strings
 			while (sc.hasNextLine()) {
-				//numbers[arrayMaker] = Integer.parseInt(sc.nextLine()); // save to int array
-				numbers[arrayMaker] = sc.nextLine(); // save to String array
+				numbers[arrayMaker] = Integer.parseInt(sc.nextLine()); // save to int array
+				//numbers[arrayMaker] = sc.nextLine(); // save to String array
 			 	arrayMaker++;
 			}
 			
 			
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+			// Try 1
 			
-			
+			// on this one I tried getting the distance inside the same number like in the example
+			// so if the numbers is 123321 there are the distances two (3), four (2) and six (1)
+			// it takes the highest distance and sum to a grand total from the whole String array made out of the txt file 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////			
+			/*
 			for (int i = 0; i < numbers.length -1; i++) {
 				int tamanho = String.valueOf(numbers[i]).length();
 	            String checkCurrent = numbers[i]; // to show on Eclipse debugger
@@ -80,7 +93,7 @@ public class Main {
 			            }
                 }
                 totalOfCountSequence += countOfSequenceOld; 
- 			}
+ 			}*/
 	                // olha aqui dentro do numero se se caracteriza por uma sequencia..
 			 		// forma char array com o numero
 			  	// checar a distancia dentro do numero atual
@@ -88,27 +101,31 @@ public class Main {
 				         // se a sequencia caracteriza uma largura.. 
 		                // soma no final ao totalOfCountSequence
 		            
-		            
 	        
-			
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+			// Try 2
+			// this one gets the closest
 			
 			// turns the number of digits in each number into the array value itself 
 			// e.g. 123456 becomes 5
-			/*for (int i = 9999; i >= 0; i--) {
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////			
+			for (int i = 9999; i >= 0; i--) {
 				numbers[i] = String.valueOf(numbers[i]).length();
-			}*/
+			}
 			
-			
-			
-			// if the numbers are converted on their own distances, the result gives 8205, with them themselves become 9999 (!=) or 0 (==)
-			/*for (int i = 0; i < 9999; i++) {
+			// if the numbers are converted on their own distances, the result gives 8205, 
+			// with them themselves become 9999 (!=) or 0 (==)
+			for (int i = 0; i < 9999; i++) {
 				if (numbers[i] == numbers[i+1]) {
 					counter++;
 				}
-			}*/
+			}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+			// Try 3
 			
 			// takes the index number and compare it to the next, if != then counter ++ to show the distance
 			// resets counter if the number is equal and store it
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////			
 			/*for (int i = 0; i < 9999; i++) {
 			//for (int i = 9999; i > 0; i--) { // alternative
 				if (numbers[i] != numbers[i+1]) {
@@ -121,17 +138,28 @@ public class Main {
 					//}
 				}
 			}*/
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
+			// Try 4
 			
 			// trying to match 2 equals numbers and getting its sequence
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			/*for (int i = 0; i < 9999; i++) {
 				for (int j = 9999; j > 0; j--) {
-					if (numbers[i] == numbers[j]) {
-						counter = j - i;
+					if (numbers[i].equals(numbers[j]) == true) {
+						counter = j - i + 1;
+					} else {
+						counter = 1;
 					}
 				}
+				if (counter > savedCounter) {
+					savedCounter = counter;
+				}
 			}*/
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+			// Try 5
 			
-			// sum the digits -1 from all entries
+			// sum the digits -1 from all entries, it results in over 4 million sum
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////			
 			/*for (int i = 9999; i > 0; i--) {
 				while(numbers[i] > 0) {
 					numbers[i] = numbers[i]/10;
@@ -139,8 +167,11 @@ public class Main {
 				}
 				sum += digitCount - 1;
 			}*/
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
+			// Try 6
 			
-			// finds the biggest number
+			// finds the biggest number, it works
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////			
 			/*for (int i = 0; i < 9999; i++) {
 				if(numbers[i] > numbers [i + 1] && i < 9998) {
 					for (int j = 1; j < 9999; j++) {
@@ -148,7 +179,14 @@ public class Main {
 					}
 				}
 			}*/
-		System.out.println(totalOfCountSequence);
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		// this part print the result or a message saying the file wasn't found
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			
+		//System.out.println(totalOfCountSequence); // Try 1
+		System.out.println(counter); // Tries 2 and 3
+		//System.out.println(savedCounter); // Try 4
+		//System.out.println(sum); // Try 5
 		} catch (FileNotFoundException e) {
 			System.out.println(datei + " nicht vorhanden");
 		}
@@ -156,6 +194,8 @@ public class Main {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	public static void ohne6Bis7(String datei) {
 		int counter = 0;
 		int sum = 0;
