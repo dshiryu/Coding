@@ -42,26 +42,70 @@ public class Main {
 		int counter = 0;
 		int arrayMaker = 0;
 		int savedCounter = 0;
-		//int digitCount = 0;
-		//int sum = 0;
-		int[] numbers = new int[10000]; // int array
-		//String[] numbers = new String[10000]; // String array
+		int countOfSequenceOld = 0;
+		int countOfSequenceNew = 0;
+        int totalOfCountSequence = 0;
+        
+		//int[] numbers = new int[10000]; // int array
+		String[] numbers = new String[10000]; // String array
 		Scanner sc = null;
 		File f = new File(datei);
 		try {
 			sc = new Scanner(f);
 			// create an array of ints
 			while (sc.hasNextLine()) {
-				numbers[arrayMaker] = Integer.parseInt(sc.nextLine()); // save to int array
-				//numbers[arrayMaker] = sc.nextLine(); // save to String array
-				arrayMaker++;
+				//numbers[arrayMaker] = Integer.parseInt(sc.nextLine()); // save to int array
+				numbers[arrayMaker] = sc.nextLine(); // save to String array
+			 	arrayMaker++;
 			}
 			
-			// turns the number of digits in each number into the array value itself -1
+			
+			
+			
+			for (int i = 0; i < numbers.length -1; i++) {
+				int tamanho = String.valueOf(numbers[i]).length();
+	            String checkCurrent = numbers[i]; // to show on Eclipse debugger
+	            countOfSequenceOld = 0;
+                for (int j = 0; j < tamanho-1; j++) {
+                	for (int k = tamanho-1; k > 0; k--) {
+			            if (numbers[i].charAt(j) == numbers[i].charAt(k)) {
+			            	countOfSequenceNew = k-j+1;
+			            	break;
+			            } else {
+			            	countOfSequenceNew = 1;
+			            }
+			        }
+                	if (countOfSequenceNew > countOfSequenceOld) {
+			            	countOfSequenceOld = countOfSequenceNew;
+			            }
+                }
+                totalOfCountSequence += countOfSequenceOld; 
+ 			}
+	                // olha aqui dentro do numero se se caracteriza por uma sequencia..
+			 		// forma char array com o numero
+			  	// checar a distancia dentro do numero atual
+				 	// soma a largura ao total
+				         // se a sequencia caracteriza uma largura.. 
+		                // soma no final ao totalOfCountSequence
+		            
+		            
+	        
+			
+			
+			// turns the number of digits in each number into the array value itself 
 			// e.g. 123456 becomes 5
-			for (int i = 9999; i >= 0; i--) {
-				numbers[i] = String.valueOf(numbers[i]).length() - 1;
-			}
+			/*for (int i = 9999; i >= 0; i--) {
+				numbers[i] = String.valueOf(numbers[i]).length();
+			}*/
+			
+			
+			
+			// if the numbers are converted on their own distances, the result gives 8205, with them themselves become 9999 (!=) or 0 (==)
+			/*for (int i = 0; i < 9999; i++) {
+				if (numbers[i] == numbers[i+1]) {
+					counter++;
+				}
+			}*/
 			
 			// takes the index number and compare it to the next, if != then counter ++ to show the distance
 			// resets counter if the number is equal and store it
@@ -78,12 +122,15 @@ public class Main {
 				}
 			}*/
 			
-			for (int i = 0; i < 9999; i++) {
-				if (numbers[i] == numbers[i+1]) {
-					counter++;
+			// trying to match 2 equals numbers and getting its sequence
+			/*for (int i = 0; i < 9999; i++) {
+				for (int j = 9999; j > 0; j--) {
+					if (numbers[i] == numbers[j]) {
+						counter = j - i;
+					}
 				}
-			}
-				
+			}*/
+			
 			// sum the digits -1 from all entries
 			/*for (int i = 9999; i > 0; i--) {
 				while(numbers[i] > 0) {
@@ -101,8 +148,7 @@ public class Main {
 					}
 				}
 			}*/
-		System.out.println(counter);
-		//System.out.println(numbers[0]);
+		System.out.println(totalOfCountSequence);
 		} catch (FileNotFoundException e) {
 			System.out.println(datei + " nicht vorhanden");
 		}
